@@ -1,61 +1,33 @@
 <script context="module">
+    import { members, products } from '$lib/stores';
 	/**
 	 * @type {import('@sveltejs/kit').Load}
 	 */
 	export async function load({ page, fetch, session, stuff }) {
-        return {
-            props: {
-                members: await (await fetch('/members.json')).json(),
-                products: await (await fetch('/products.json')).json(),
-            }
-        }
+        members.set(await (await fetch('/members.json')).json())
+        products.set(await (await fetch('/products.json')).json())
+        return {}
     }
 </script>
 
 <script>
+    import Members from '$lib/Members.svelte'
+    import Products from '$lib/Products.svelte'
     import Order from '$lib/Order.svelte'
-
-    export let members = []
-    export let products = []
-
-    let currentMember
-    let order = []
-
-    const addProduct = product => {
-        order = [...(order ?? []), { amount: 1, product }]
-    }
-
+    import { order, currentMember } from '$lib/stores'
 </script>
 
 <main>
-    {#if currentMember}
-        <button class='member'>{currentMember.name}</button>
+    {#if $currentMember}
+        <button class='member'>{$currentMember.name}</button>
     {:else}
-        <section>
-            <ul class='members'>
-                {#each members as member}
-                <li>
-                    <button on:click={() => currentMember = member}>{member.name}</button>
-                </li>
-                {/each}
-            </ul>
-        </section>
+        <Members />
     {/if}
     
-    <section>
-        <ul class='products'>
-            {#each products as product}
-            <li>
-                <button on:click={() => addProduct(product)}>
-                    {product.name}: <span>{(product.price/100).toFixed(2)}</span>
-                </button>
-            </li>
-            {/each}
-        </ul>
-    </section>
+    <Products />
 
-    {#if order}
-        <Order bind:order />
+    {#if $order.length > 0}
+        <Order />
     {:else}
         <section>history</section>
     {/if}
@@ -65,6 +37,7 @@
 <style>
 
     main {
+        user-select: none;
         display: flex;
         background: pink;
         position: absolute;
@@ -72,10 +45,10 @@
         height: 100%;
         width: 100%;
     }
-    main > * {
+    main > :global(*) {
         flex: 1;
     }
-    section {
+    main > * {
         padding: .5em;
     }
 
