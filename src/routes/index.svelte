@@ -18,19 +18,25 @@
 </script>
 
 <main>
-    {#if $currentMember}
-        <button class='member'>{$currentMember.name}</button>
-    {:else}
-        <Members />
-    {/if}
-    
-    <Products />
+    <section class='member' class:floating={!!$currentMember}>
+        {#if $currentMember}
+            <button on:click={() => $currentMember = null}>{$currentMember.name}</button>
+        {:else}
+            <Members />
+        {/if}
+    </section>
+            
+    <section>
+        <Products />
+    </section>
 
-    {#if $order.length > 0}
-        <Order />
-    {:else}
-        <section>history</section>
-    {/if}
+    <section class='right-panel'>
+        {#if $order.length > 0}
+            <Order />
+        {:else}
+            <section>history</section>
+        {/if}
+    </section>
 </main>
 
 
@@ -52,25 +58,18 @@
         padding: .5em;
     }
 
+    .right-panel {
+        flex: none;
+        width: 20%;
+    }
+
     .member {
+        background: white;
+        transition: transform 1s;
+    }
+    .member.floating {   
         position: absolute;
         bottom: 0;
         left: 0;
-    }
-
-    ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-
-    li > button {
-        display: block;
-        width: 100%;
-        padding: 1em;
-        margin-bottom: 1em;
-
-        border: none;
-        border-radius: none;
     }
 </style>

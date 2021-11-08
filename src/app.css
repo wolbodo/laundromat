@@ -58,3 +58,13 @@ button {
 section {
 	overflow-y: auto;
 }
+
+
+button {
+	display: block;
+	padding: 1em;
+	margin-bottom: 1em;
+
+	border: none;
+	border-radius: none;
+}

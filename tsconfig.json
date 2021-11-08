@@ -25,6 +25,7 @@
 		"paths": {
 			"$lib": ["src/lib"],
 			"$lib/*": ["src/lib/*"],
+			"$data/*": ["src/data/*"],
 			"$config/*": ["src/config/*"],
 		}
 	},

@@ -1,14 +1,12 @@
+import fs from 'fs/promises'
+import yaml from 'js-yaml'
 
 /**
  * @type {import('@sveltejs/kit').RequestHandler}
  */
- export async function get() {
+export async function get() {
+    const products = yaml.load(await fs.readFile('data/products.yml', { encoding: 'utf-8' }))
     return {
-        body: [
-           { name: 'Bier', price: 125 },
-           { name: 'Speciaal', price: 250 },
-           { name: 'Cola', price: 120 },
-           { name: 'Wodka', price: 180 },
-       ]
+        body: products
     }
 }

@@ -16,3 +16,9 @@
     </li>
     {/each}
 </ul>
+
+<style>
+    button {
+        width: 100%;
+    }
+</style>
