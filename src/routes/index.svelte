@@ -4,8 +4,8 @@
 	 * @type {import('@sveltejs/kit').Load}
 	 */
 	export async function load({ page, fetch, session, stuff }) {
-		members.set(await (await fetch('/members.json')).json());
-		products.set(await (await fetch('/products.json')).json());
+		members.set(await fetch('/members.json').then((x) => x.json()));
+		products.set(await fetch('/products.json').then((x) => x.json()));
 		return {};
 	}
 </script>
