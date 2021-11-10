@@ -19,7 +19,7 @@
 </script>
 
 <main>
-	<section class="previous-members">
+	<section class="recent">
 		Previous members
 		<!-- <Members /> -->
 	</section>
@@ -43,7 +43,7 @@
 		display: grid;
 		grid-template:
 			'recent products history' minmax(50px, 1fr)
-			'.  products calculator' minmax(50px, 1fr) / minmax(1fr, 100px) 2fr minmax(1fr, 100px);
+			'.  products calculator' minmax(250px, 1fr) / 1fr 1fr 1fr;
 
 		gap: 0.5em;
 		position: absolute;
@@ -51,11 +51,17 @@
 		height: 100%;
 		width: 100%;
 	}
+	.recent {
+		grid-area: recent;
+	}
 	main > :global(.products) {
 		grid-area: products;
 	}
 	main > :global(.calculator) {
 		grid-area: calculator;
+	}
+	.history {
+		grid-area: history;
 	}
 	.member {
 		transition: transform 1s;

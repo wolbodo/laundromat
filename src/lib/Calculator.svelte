@@ -8,22 +8,21 @@
 		<button style="grid-area: n{number}">{number}</button>
 	{/each}
 
-	<button>Cash</button>
-	<button>Register</button>
+	<button style="grid-area: cash">Cash</button>
+	<button style="grid-area: viltjes">Viltjes</button>
 </section>
 
 <style>
 	.calculator {
-		grid-area: 'calculator';
-
 		display: grid;
 		gap: 0.5em;
-		grid-template-columns: repeat(4, 1fr);
-		grid-template-rows: repeat(4, 1fr);
+		grid-template-columns: repeat(4, 3rem);
+		grid-template-rows: repeat(4, 3rem);
 		grid-template-areas:
 			'n7 n8 n9 times'
 			'n4 n5 n6 min'
 			'n1 n2 n3 plus'
-			'n0 clear clear clear';
+			'n0 . clear clear'
+			'cash cash viltjes viltjes';
 	}
 </style>
