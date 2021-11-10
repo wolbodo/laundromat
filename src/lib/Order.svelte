@@ -4,7 +4,11 @@
     const showPrice = price => `€ ${(price/100).toFixed(2)}`
 </script>
 
-<ul class='order'>
+<section class='user'>
+
+</section>
+
+<ul class='items'>
     {#each $order as item}
     <li>
         <article>
@@ -15,10 +19,9 @@
         </button>
     </li>
     {/each}
-
 </ul>
 
-<section class='total'>{showPrice($order.reduce((sum, item) => sum + (item.amount * item.product.price), 0))}</section>
+<section class='total'>Total: {showPrice($order.reduce((sum, item) => sum + (item.amount * item.product.price), 0))}</section>
 
 <style>
     li {

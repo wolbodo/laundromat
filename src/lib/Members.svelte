@@ -14,4 +14,12 @@
     button {
         width: 100%;
     }
+
+    .members {
+        display: grid;
+        grid: auto / repeat(2, 1fr);
+        grid-gap: .5em;
+    }
+    .members > li {
+    }
 </style>

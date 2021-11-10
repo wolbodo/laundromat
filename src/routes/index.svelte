@@ -1,75 +1,63 @@
 <script context="module">
-    import { members, products } from '$lib/stores';
+	import { members, products } from '$lib/stores';
 	/**
 	 * @type {import('@sveltejs/kit').Load}
 	 */
 	export async function load({ page, fetch, session, stuff }) {
-        members.set(await (await fetch('/members.json')).json())
-        products.set(await (await fetch('/products.json')).json())
-        return {}
-    }
+		members.set(await (await fetch('/members.json')).json());
+		products.set(await (await fetch('/products.json')).json());
+		return {};
+	}
 </script>
 
 <script>
-    import Members from '$lib/Members.svelte'
-    import Products from '$lib/Products.svelte'
-    import Order from '$lib/Order.svelte'
-    import { order, currentMember } from '$lib/stores'
+	import Members from '$lib/Members.svelte';
+	import Products from '$lib/Products.svelte';
+	import Order from '$lib/Order.svelte';
+	import { order, currentMember } from '$lib/stores';
+	import Calculator from '$lib/Calculator.svelte';
 </script>
 
 <main>
-    <section class='member' class:floating={!!$currentMember}>
-        {#if $currentMember}
-            <button on:click={() => $currentMember = null}>{$currentMember.name}</button>
-        {:else}
-            <Members />
-        {/if}
-    </section>
-            
-    <section>
-        <Products />
-    </section>
+	<section class="previous-members">
+		Previous members
+		<!-- <Members /> -->
+	</section>
 
-    <section class='right-panel'>
-        {#if $order.length > 0}
-            <Order />
-        {:else}
-            <section>history</section>
-        {/if}
-    </section>
+	<Products />
+
+	<section class="history">
+		{#if $order.length > 0}
+			<Order />
+		{:else}
+			<section>history</section>
+		{/if}
+	</section>
+
+	<Calculator />
 </main>
 
-
 <style>
+	main {
+		user-select: none;
+		display: grid;
+		grid-template:
+			'recent products history' minmax(50px, 1fr)
+			'.  products calculator' minmax(50px, 1fr) / minmax(1fr, 100px) 2fr minmax(1fr, 100px);
 
-    main {
-        user-select: none;
-        display: flex;
-        background: pink;
-        position: absolute;
+		gap: 0.5em;
+		position: absolute;
 
-        height: 100%;
-        width: 100%;
-    }
-    main > :global(*) {
-        flex: 1;
-    }
-    main > * {
-        padding: .5em;
-    }
-
-    .right-panel {
-        flex: none;
-        width: 20%;
-    }
-
-    .member {
-        background: white;
-        transition: transform 1s;
-    }
-    .member.floating {   
-        position: absolute;
-        bottom: 0;
-        left: 0;
-    }
+		height: 100%;
+		width: 100%;
+	}
+	main > :global(.products) {
+		grid-area: products;
+	}
+	main > :global(.calculator) {
+		grid-area: calculator;
+	}
+	.member {
+		transition: transform 1s;
+	}
 </style>
