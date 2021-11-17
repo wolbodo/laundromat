@@ -1,8 +1,17 @@
-<script>
+<script lang="ts">
+	import { value } from '$lib/Calculator.svelte';
 	import { order, products } from '$lib/stores';
 
 	const addProduct = (product) => {
-		$order = [...($order ?? []), { amount: 1, product }];
+		const item = $order.get(product.name);
+
+		if (item) {
+			item.amount += $value || 1;
+		} else {
+			$order.set(product.name, { amount: $value || 1, product });
+		}
+		$order = $order;
+		$value = 0;
 	};
 </script>
 
@@ -27,6 +36,8 @@
 		align-content: start;
 		grid: auto / repeat(3, 1fr);
 		gap: 0.5em;
+
+		outline: var(--outline);
 	}
 	.products > li {
 	}

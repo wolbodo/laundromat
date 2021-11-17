@@ -11,7 +11,6 @@
 </script>
 
 <script>
-	import Members from '$lib/Members.svelte';
 	import Products from '$lib/Products.svelte';
 	import Order from '$lib/Order.svelte';
 	import { order, currentMember } from '$lib/stores';
@@ -26,24 +25,24 @@
 
 	<Products />
 
-	<section class="history">
-		{#if $order.length > 0}
-			<Order />
-		{:else}
-			<section>history</section>
-		{/if}
-	</section>
+	{#if $order.size > 0}
+		<Order />
+	{:else}
+		<section class="history">history</section>
+	{/if}
 
 	<Calculator />
 </main>
 
 <style>
 	main {
+		--outline: 1px solid black;
+
 		user-select: none;
 		display: grid;
 		grid-template:
 			'recent products history' minmax(50px, 1fr)
-			'.  products calculator' minmax(250px, 1fr) / 1fr 1fr 1fr;
+			'.  products calculator' minmax(250px, auto) / 1fr auto minmax(10em, auto);
 
 		gap: 0.5em;
 		position: absolute;
@@ -59,6 +58,9 @@
 	}
 	main > :global(.calculator) {
 		grid-area: calculator;
+	}
+	section {
+		outline: var(--outline);
 	}
 	.history {
 		grid-area: history;

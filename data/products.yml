@@ -1,30 +1,41 @@
-- name: 'Bier'
+- name: Tap pils
   price: 125
-- name: 'Speciaal'
+- name: Fles pils
+  price: 150
+- name: Speciaal bier
   price: 250
-- name: 'Cola'
+- name: Fris
   price: 120
-- name: 'Wodka'
+- name: Hipsterfris
+  price: 150
+- name: Fles wijn
+  price: 900
+- name: Leffe
+  price: 200
+- name: Baileys
+  price: 200
+- name: Bombay gin
+  price: 220
+- name: Gin
   price: 180
-- name: 'Wodka'
+- name: Goldstrike
+  price: 260
+- name: Hot n' sweet
+  price: 220
+- name: Jagermeister
+  price: 200
+- name: Jonge jenever
+  price: 160
+- name: Oude jenever
+  price: 160
+- name: Port (2bm)
+  price: 230
+- name: Ricard
+  price: 210
+- name: Rum Bacardi
+  price: 190
+- name: Tequila
+  price: 220
+- name: Wodka Wyborova
   price: 180
-- name: 'Bier'
-  price: 125
-- name: 'Speciaal'
-  price: 250
-- name: 'Cola'
-  price: 120
-- name: 'Wodka'
-  price: 180
-- name: 'Wodka'
-  price: 180
-- name: 'Bier'
-  price: 125
-- name: 'Speciaal'
-  price: 250
-- name: 'Cola'
-  price: 120
-- name: 'Wodka'
-  price: 180
-- name: 'Wodka'
-  price: 180
+

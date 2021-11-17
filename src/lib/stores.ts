@@ -15,4 +15,4 @@ export type Item = {
 export const currentMember = writable<Member>()
 export const members = writable<Member[]>([])
 export const products = writable<Product[]>([])
-export const order = writable<Item[]>([])
+export const order = writable<Map<string, Item>>(new Map())
