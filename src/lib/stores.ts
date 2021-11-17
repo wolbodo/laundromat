@@ -16,3 +16,4 @@ export const currentMember = writable<Member>()
 export const members = writable<Member[]>([])
 export const products = writable<Product[]>([])
 export const order = writable<Map<string, Item>>(new Map())
+export const calculatorValue = writable<number>(0);

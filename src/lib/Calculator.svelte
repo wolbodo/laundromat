@@ -1,7 +1,5 @@
-<script context="module" lang="ts">
-	import { writable } from 'svelte/store';
-
-	export const value = writable<number>(0);
+<script lang="ts">
+	import { calculatorValue as value } from '$lib/stores';
 </script>
 
 <section class="calculator">

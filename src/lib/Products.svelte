@@ -1,17 +1,16 @@
 <script lang="ts">
-	import { value } from '$lib/Calculator.svelte';
-	import { order, products } from '$lib/stores';
+	import { order, products, calculatorValue } from '$lib/stores';
 
 	const addProduct = (product) => {
 		const item = $order.get(product.name);
 
 		if (item) {
-			item.amount += $value || 1;
+			item.amount += $calculatorValue || 1;
 		} else {
-			$order.set(product.name, { amount: $value || 1, product });
+			$order.set(product.name, { amount: $calculatorValue || 1, product });
 		}
 		$order = $order;
-		$value = 0;
+		$calculatorValue = 0;
 	};
 </script>
 

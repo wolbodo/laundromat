@@ -13,8 +13,8 @@
 <script>
 	import Products from '$lib/Products.svelte';
 	import Order from '$lib/Order.svelte';
-	import { order, currentMember } from '$lib/stores';
 	import Calculator from '$lib/Calculator.svelte';
+	import { order, calculatorValue } from '$lib/stores';
 </script>
 
 <main>
@@ -25,24 +25,37 @@
 
 	<Products />
 
-	{#if $order.size > 0}
-		<Order />
-	{:else}
-		<section class="history">history</section>
-	{/if}
+	<section class="state">
+		<section class="user">
+			<button>Pick user</button>
+		</section>
 
-	<Calculator />
+		{#if $order.size > 0}
+			<Order />
+		{:else}
+			<section class="history">history</section>
+		{/if}
+
+		<section class="value">
+			{#if $calculatorValue > 0}
+				{$calculatorValue}x
+			{/if}
+		</section>
+
+		<Calculator />
+	</section>
 </main>
 
 <style>
 	main {
-		--outline: 1px solid black;
+		--outline: none;
 
 		user-select: none;
 		display: grid;
-		grid-template:
-			'recent products history' minmax(50px, 1fr)
-			'.  products calculator' minmax(250px, auto) / 1fr auto minmax(10em, auto);
+		grid-template: 'recent products right' minmax(250px, auto) / minmax(10em, auto) auto minmax(
+				10em,
+				auto
+			);
 
 		gap: 0.5em;
 		position: absolute;
@@ -56,14 +69,21 @@
 	main > :global(.products) {
 		grid-area: products;
 	}
-	main > :global(.calculator) {
-		grid-area: calculator;
+	.state {
+		grid-area: right;
+
+		display: grid;
+		grid-template:
+			'user' fit-content(100px)
+			'main' auto
+			'value' 1rem
+			'calculator' fit-content(15rem);
 	}
 	section {
 		outline: var(--outline);
 	}
 	.history {
-		grid-area: history;
+		grid-area: main;
 	}
 	.member {
 		transition: transform 1s;

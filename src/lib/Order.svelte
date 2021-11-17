@@ -1,17 +1,10 @@
 <script>
-	import { value } from '$lib/Calculator.svelte';
 	import { order } from '$lib/stores';
 
 	const showPrice = (price) => `€ ${(price / 100).toFixed(2)}`;
 </script>
 
 <section class="order">
-	{#if $value > 0}
-		<section class="state">
-			{$value}
-		</section>
-	{/if}
-
 	<ul class="items">
 		{#each [...$order.values()] as item}
 			<li>
@@ -39,14 +32,28 @@
 
 <style>
 	.order {
-		grid-area: 'history';
+		grid-area: 'main';
 
 		display: grid;
 		gap: 0.5em;
 		grid-template:
-			'state' 3rem
 			'items' auto
-			'total' 3rem / 1fr;
+			'total' 1rem / 1fr;
+	}
+	.state {
+		grid-area: state;
+
+		display: grid;
+		grid-template: 'count user';
+
+		padding: 0.5rem 0;
+		/* font-size: 1.5rem; */
+		align-items: center;
+	}
+	.state > button {
+		grid-area: user;
+		padding: 0.1rem;
+		height: 100%;
 	}
 	.total {
 		grid-area: total;
