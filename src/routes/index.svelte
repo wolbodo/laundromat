@@ -1,5 +1,5 @@
 <script context="module">
-	import { members, products } from '$lib/stores';
+	import { members, products, history, order, calculatorValue } from '$lib/stores';
 	/**
 	 * @type {import('@sveltejs/kit').Load}
 	 */
@@ -14,7 +14,6 @@
 	import Products from '$lib/Products.svelte';
 	import Order from '$lib/Order.svelte';
 	import Calculator from '$lib/Calculator.svelte';
-	import { order, calculatorValue } from '$lib/stores';
 </script>
 
 <main>
@@ -33,7 +32,13 @@
 		{#if $order.size > 0}
 			<Order />
 		{:else}
-			<section class="history">history</section>
+			<section class="history">
+				<ul>
+					{#each $history as order}
+						<li>{order.user}: {order.total}</li>
+					{/each}
+				</ul>
+			</section>
 		{/if}
 
 		<section class="value">

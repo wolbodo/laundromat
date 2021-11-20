@@ -3,11 +3,11 @@
 </script>
 
 <section class="calculator">
-	<button style="grid-area: times">X</button>
-	<button style="grid-area: min">-</button>
-	<button style="grid-area: plus">+</button>
+	<!-- <button style="grid-area: times">X</button> -->
+	<!-- <button style="grid-area: min">-</button> -->
+	<!-- <button style="grid-area: plus">+</button> -->
 	<button style="grid-area: clear" on:click={() => ($value = 0)}>clear</button>
-	<button style="grid-area: punt">.</button>
+	<!-- <button style="grid-area: punt">.</button> -->
 
 	{#each [...Array(10)].map((_, i) => i) as number}
 		<button style="grid-area: n{number}" on:click={() => ($value = parseInt(`${$value}${number}`))}

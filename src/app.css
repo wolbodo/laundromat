@@ -3,6 +3,11 @@
    License: none (public domain)
 */
 
+:root {
+	--background: rgb(46, 38, 38);
+	--color: rgb(156, 22, 44);
+}
+
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -33,6 +38,8 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
+	background: var(--background);
+	color: var(--color);
 }
 ol, ul {
 	list-style: none;
@@ -53,6 +60,8 @@ table {
 button {
 	font-size: 1em;
 	padding: 1em;
+	background: rgba(89, 228, 64, 0.541);
+	color: white;
 }
 
 section {
