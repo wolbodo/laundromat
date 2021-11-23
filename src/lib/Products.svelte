@@ -1,35 +1,31 @@
 <script lang="ts">
-	import { order, products, calculatorValue } from '$lib/stores';
+	import { addProduct } from '$lib/stores';
+	import ProductItem from './ProductItem.svelte';
 
-	const addProduct = (product) => {
-		const item = $order.get(product.name);
-
-		if (item) {
-			item.amount += $calculatorValue || 1;
-		} else {
-			$order.set(product.name, { amount: $calculatorValue || 1, product });
-		}
-		$order = $order;
-		$calculatorValue = 0;
-	};
+	export let products = [];
 </script>
 
-<ul class="products">
-	{#each $products as product}
-		<li>
-			<button on:click={() => addProduct(product)}>
-				{product.name}: <span>{(product.price / 100).toFixed(2)}</span>
-			</button>
-		</li>
+<section class="products">
+	{#each products as product}
+		<section class={product.type || 'normal'}>
+			{#if product.label}
+				<h2>{product.label}</h2>
+			{/if}
+
+			{#if product.price}
+				<ProductItem {product} />
+			{/if}
+
+			{#if product.items}
+				{#each product.items as product}
+					<ProductItem {product} on:click={() => product.price && addProduct(product)} />
+				{/each}
+			{/if}
+		</section>
 	{/each}
-</ul>
+</section>
 
 <style>
-	button {
-		width: 100%;
-		white-space: nowrap;
-	}
-
 	.products {
 		display: grid;
 		align-content: start;
@@ -37,7 +33,27 @@
 		gap: 0.5em;
 
 		outline: var(--outline);
+		overflow-y: auto;
 	}
-	.products > li {
+	.products > section {
+		background-color: var(--blue);
+	}
+	.products h2 {
+		color: var(--white);
+		margin: 0.5rem;
+	}
+	.large {
+		grid-column: span 4;
+
+		display: grid;
+		grid: 6rem / repeat(4, 1fr);
+		grid-gap: 0.5rem;
+	}
+	.group {
+		grid-column: span 4;
+
+		display: grid;
+		grid: auto / repeat(4, 1fr);
+		grid-gap: 0.5rem;
 	}
 </style>

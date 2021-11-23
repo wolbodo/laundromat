@@ -1,5 +1,14 @@
 <script context="module">
-	import { members, products, history, order, calculatorValue } from '$lib/stores';
+	import {
+		members,
+		products,
+		history,
+		order,
+		calculatorValue,
+		currentUser,
+		formatPrice,
+		totalPrice
+	} from '$lib/stores';
 	/**
 	 * @type {import('@sveltejs/kit').Load}
 	 */
@@ -11,39 +20,43 @@
 </script>
 
 <script>
+	import Members from '$lib/Members.svelte';
 	import Products from '$lib/Products.svelte';
 	import Order from '$lib/Order.svelte';
 	import Calculator from '$lib/Calculator.svelte';
 </script>
 
 <main>
-	<section class="recent">
-		Previous members
-		<!-- <Members /> -->
-	</section>
+	<Members />
 
-	<Products />
+	<Products products={$products} />
 
 	<section class="state">
-		<section class="user">
-			<button>Pick user</button>
-		</section>
-
 		{#if $order.size > 0}
 			<Order />
 		{:else}
 			<section class="history">
 				<ul>
 					{#each $history as order}
-						<li>{order.user}: {order.total}</li>
+						<li>{order.user?.name}: {order.total}</li>
 					{/each}
 				</ul>
 			</section>
 		{/if}
 
-		<section class="value">
-			{#if $calculatorValue > 0}
-				{$calculatorValue}x
+		<section class="total">
+			{#if $currentUser}
+				<p>{$currentUser?.name}</p>
+			{/if}
+			{#if $calculatorValue}
+				<section class="value">
+					{$calculatorValue}x
+				</section>
+			{/if}
+			{#if $order.size}
+				<section>
+					Total: <span class="price">{formatPrice(totalPrice($order))}</span>
+				</section>
 			{/if}
 		</section>
 
@@ -68,9 +81,6 @@
 		height: 100%;
 		width: 100%;
 	}
-	.recent {
-		grid-area: recent;
-	}
 	main > :global(.products) {
 		grid-area: products;
 	}
@@ -79,18 +89,18 @@
 
 		display: grid;
 		grid-template:
-			'user' fit-content(100px)
 			'main' auto
-			'value' 1rem
+			'summary' auto
 			'calculator' fit-content(15rem);
+	}
+	.total {
+		background: var(--blue);
+		color: var(--white);
 	}
 	section {
 		outline: var(--outline);
 	}
 	.history {
 		grid-area: main;
-	}
-	.member {
-		transition: transform 1s;
 	}
 </style>

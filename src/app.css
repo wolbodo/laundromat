@@ -1,11 +1,23 @@
+@import "@fontsource/material-icons";
+
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
 */
 
 :root {
-	--background: rgb(46, 38, 38);
-	--color: rgb(156, 22, 44);
+	--brown: rgb(46, 38, 38);
+	--blue: rgb(1, 18, 130);
+	--red: rgb(156, 22, 44);
+	--green: rgb(40, 92, 15);
+	--gray: rgb(92, 95, 112);
+	--white: rgb(255,255,255);
+
+	--background: rgb(55, 4, 45);
+	--button-background: var(--gray);
+	--button-color: var(--white);
+
+	font-size: 25px;
 }
 
 html, body, div, span, applet, object, iframe,
@@ -28,8 +40,6 @@ time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;
     box-sizing: border-box;
-
-	font-size: 25px;
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
@@ -60,8 +70,8 @@ table {
 button {
 	font-size: 1em;
 	padding: 1em;
-	background: rgba(89, 228, 64, 0.541);
-	color: white;
+	background: var(--button-background);
+	color: var(--button-color);
 }
 
 section {

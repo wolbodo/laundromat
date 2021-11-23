@@ -1,26 +1,12 @@
+<script context="module" lang="ts">
+	import { order, formatPrice } from '$lib/stores';
+</script>
+
 <script>
-	import { order, history } from '$lib/stores';
-
-	const totalPrice = (order) =>
-		[...order.values()].reduce((sum, item) => sum + item.amount * item.product.price, 0);
-	const showPrice = (price) => `€ ${(price / 100).toFixed(2)}`;
-
 	$: if ($order && items) {
 		console.log(items);
 		items.scroll(0, items.scrollTopMax);
 	}
-
-	const submitOrder = () => {
-		$history = [
-			...$history,
-			{
-				user: 'user',
-				total: totalPrice($order),
-				items: [...$order.values()]
-			}
-		];
-		$order = new Map();
-	};
 
 	let items;
 </script>
@@ -30,7 +16,7 @@
 		{#each [...$order.values()] as item}
 			<li>
 				<article>
-					{item.amount}x {item.product.name}: <span>{showPrice(item.product.price)}</span>
+					{item.amount}x {item.product.name}: <span>{formatPrice(item.product.price)}</span>
 				</article>
 				<button
 					on:click={() => {
@@ -43,18 +29,12 @@
 			</li>
 		{/each}
 	</ul>
-
-	<section class="total">
-		<section>
-			Total: <span class="price">{showPrice(totalPrice($order))}</span>
-		</section>
-
-		<button on:click={submitOrder}>Pay</button>
-	</section>
 </section>
 
 <style>
 	.order {
+		background: var(--blue);
+		color: var(--white);
 		grid-area: 'main';
 
 		display: grid;
@@ -76,6 +56,7 @@
 		grid-area: user;
 	}
 	.items {
+		font-size: 0.7rem;
 		grid-area: items;
 		overflow: auto;
 	}
